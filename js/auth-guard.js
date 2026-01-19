@@ -16,8 +16,7 @@
   const currentPath = window.location.pathname;
   
   // List of public pages that don't require authentication
-  // NOTE: This list is duplicated from config.js to keep auth-guard.js
-  // as a standalone, non-module script that can block page rendering
+  // NOTE: If you add new public pages, update this list
   const publicPages = ['/login.html', '/register.html', '/index.html', '/'];
   const isPublicPage = publicPages.some(page => currentPath.endsWith(page) || currentPath === page);
   

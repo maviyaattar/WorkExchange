@@ -307,15 +307,16 @@
       });
     };
 
-    // Initialize when DOM is ready and apiService is loaded
+    // Initialize when DOM is ready and apiService module is loaded
+    // Module scripts with type="module" are deferred by default, so we
+    // use Promise microtask to ensure apiService is fully initialized
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', () => {
-        // Module scripts defer automatically, so apiService should be ready
-        setTimeout(loadProfile, 0);
+        Promise.resolve().then(loadProfile);
       });
     } else {
       // DOM already loaded
-      setTimeout(loadProfile, 0);
+      Promise.resolve().then(loadProfile);
     }
   </script>
 </body>
