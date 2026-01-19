@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Register for WorkExchange - Start trading skills and tasks">
   <title>Register - WorkExchange</title>
-  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
   <div class="auth-container">
@@ -104,129 +104,6 @@
     </div>
   </div>
 
-  <script src="../js/utils.js"></script>
-  <script src="../js/components.js"></script>
-  <script src="../js/api.js"></script>
-  <script>
-    // Redirect if already logged in
-    if (utils.isAuthenticated()) {
-      window.location.href = 'dashboard.html';
-    }
-
-    // Password toggle functionality
-    const passwordToggle = document.querySelector('.password-toggle');
-    const passwordInput = document.getElementById('password');
-    const eyeIcon = passwordToggle.querySelector('.eye-icon');
-    const eyeOffIcon = passwordToggle.querySelector('.eye-off-icon');
-
-    passwordToggle.addEventListener('click', () => {
-      const type = passwordInput.type === 'password' ? 'text' : 'password';
-      passwordInput.type = type;
-      eyeIcon.classList.toggle('hidden');
-      eyeOffIcon.classList.toggle('hidden');
-    });
-
-    // Form submission
-    const registerForm = document.getElementById('registerForm');
-    const nameInput = document.getElementById('name');
-    const emailInput = document.getElementById('email');
-    const nameError = document.getElementById('nameError');
-    const emailError = document.getElementById('emailError');
-    const passwordError = document.getElementById('passwordError');
-
-    // Clear errors on input
-    nameInput.addEventListener('input', () => {
-      nameInput.classList.remove('error');
-      nameError.textContent = '';
-    });
-
-    emailInput.addEventListener('input', () => {
-      emailInput.classList.remove('error');
-      emailError.textContent = '';
-    });
-
-    passwordInput.addEventListener('input', () => {
-      passwordInput.classList.remove('error');
-      passwordError.textContent = '';
-    });
-
-    registerForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      // Clear previous errors
-      nameInput.classList.remove('error');
-      emailInput.classList.remove('error');
-      passwordInput.classList.remove('error');
-      nameError.textContent = '';
-      emailError.textContent = '';
-      passwordError.textContent = '';
-
-      // Get form values
-      const name = nameInput.value.trim();
-      const email = emailInput.value.trim();
-      const password = passwordInput.value;
-
-      // Validate
-      let hasError = false;
-
-      if (!name) {
-        nameInput.classList.add('error');
-        nameError.textContent = 'Name is required';
-        hasError = true;
-      } else if (name.length < 2) {
-        nameInput.classList.add('error');
-        nameError.textContent = 'Name must be at least 2 characters';
-        hasError = true;
-      }
-
-      if (!email) {
-        emailInput.classList.add('error');
-        emailError.textContent = 'Email is required';
-        hasError = true;
-      } else if (!utils.isValidEmail(email)) {
-        emailInput.classList.add('error');
-        emailError.textContent = 'Please enter a valid email';
-        hasError = true;
-      }
-
-      if (!password) {
-        passwordInput.classList.add('error');
-        passwordError.textContent = 'Password is required';
-        hasError = true;
-      } else {
-        const validation = utils.validatePassword(password);
-        if (!validation.isValid) {
-          passwordInput.classList.add('error');
-          passwordError.textContent = validation.errors[0];
-          hasError = true;
-        }
-      }
-
-      if (hasError) return;
-
-      // Submit registration request
-      const submitBtn = registerForm.querySelector('button[type="submit"]');
-      utils.showLoading(submitBtn);
-
-      try {
-        const response = await apiService.auth.register({
-          name,
-          email,
-          password,
-        });
-
-        uiComponents.toast.success('Registration successful! Redirecting...');
-        
-        // Redirect to dashboard
-        setTimeout(() => {
-          window.location.href = 'dashboard.html';
-        }, 500);
-      } catch (error) {
-        console.error('Registration failed:', error);
-        uiComponents.toast.error(utils.parseError(error));
-        utils.hideLoading(submitBtn);
-      }
-    });
-  </script>
+  <script type="module" src="../js/register.js"></script>
 </body>
 </html>
