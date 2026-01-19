@@ -178,6 +178,7 @@
       setTimeout(() => {
         window.location.href = 'dashboard.html';
       }, 2000);
+      throw new Error('No user ID provided');
     }
 
     // Load current user for sidebar
