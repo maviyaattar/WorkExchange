@@ -134,13 +134,12 @@
     </nav>
   </div>
 
+  <!-- Global authentication guard - must load FIRST -->
+  <script src="../js/auth-guard.js"></script>
   <script src="../js/utils.js"></script>
   <script src="../js/components.js"></script>
   <script src="../js/api.js"></script>
   <script>
-    // Check authentication
-    utils.requireAuth();
-    
     // Set active navigation
     utils.setActiveNav('profile');
 

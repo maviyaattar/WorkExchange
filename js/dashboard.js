@@ -1,11 +1,5 @@
 import apiService from './api.js';
 
-// Check authentication - redirect to login if not authenticated
-const token = localStorage.getItem('token');
-if (!token) {
-  window.location.href = 'login.html';
-}
-
 // Utility functions
 function formatNumber(num) {
   if (num === undefined || num === null) return '0';

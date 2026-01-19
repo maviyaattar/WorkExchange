@@ -218,14 +218,15 @@ const utils = {
    * @returns {boolean} Is authenticated
    */
   isAuthenticated() {
-    return !!localStorage.getItem('auth_token');
+    return !!localStorage.getItem('token');
   },
 
   /**
    * Protected Route Guard
    * Redirect to login if not authenticated
-   * Call this function at the top of every protected page script
-   * Prevents unauthorized access by checking for valid JWT token
+   * Note: This is now handled by api.js requireAuth() for consistency.
+   * Use api.js requireAuth() instead for global authentication handling.
+   * @deprecated Use requireAuth() from api.js instead
    */
   requireAuth() {
     if (!this.isAuthenticated()) {
