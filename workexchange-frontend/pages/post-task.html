@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Post a new task on WorkExchange">
+  <title>Post Task - WorkExchange</title>
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Desktop Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h1 class="sidebar-logo">WorkExchange</h1>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="sidebar-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+          <span>Dashboard</span>
+        </a>
+        <a href="browse-tasks.html" class="sidebar-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="8" y1="6" x2="21" y2="6"/>
+            <line x1="8" y1="12" x2="21" y2="12"/>
+            <line x1="8" y1="18" x2="21" y2="18"/>
+            <line x1="3" y1="6" x2="3.01" y2="6"/>
+            <line x1="3" y1="12" x2="3.01" y2="12"/>
+            <line x1="3" y1="18" x2="3.01" y2="18"/>
+          </svg>
+          <span>Browse Tasks</span>
+        </a>
+        <a href="post-task.html" class="sidebar-item active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="5" x2="12" y2="19"/>
+            <line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+          <span>Post Task</span>
+        </a>
+        <a href="my-tasks.html" class="sidebar-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+          </svg>
+          <span>My Tasks</span>
+        </a>
+        <a href="profile.html" class="sidebar-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+          <span>Profile</span>
+        </a>
+        <a href="settings.html" class="sidebar-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M12 1v6m0 6v6m7.071-13.071l-4.243 4.243m-5.656 0L4.93 4.93m0 14.14l4.243-4.242m5.656 0l4.243 4.243"/>
+          </svg>
+          <span>Settings</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div id="sidebarUserInfo" class="user-info">
+          <div class="skeleton skeleton-avatar"></div>
+          <div class="skeleton skeleton-text" style="width: 100px;"></div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="container">
+        <div class="page-header mb-6">
+          <h1 class="text-3xl font-bold">Post New Task</h1>
+          <p class="text-secondary mt-2">Create a task for others to complete</p>
+        </div>
+
+        <!-- Coin Balance Info -->
+        <div class="card mb-6" id="balanceCard">
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="text-sm text-secondary mb-1">Your Available Balance</div>
+              <div class="text-2xl font-bold flex items-center gap-2">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28" class="text-warning">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M12 6v6l4 2"/>
+                </svg>
+                <span class="text-primary" id="userCoins">
+                  <div class="skeleton skeleton-text" style="width: 100px; height: 28px;"></div>
+                </span>
+              </div>
+            </div>
+            <div class="text-xs text-secondary">
+              Tasks cost coins to post
+            </div>
+          </div>
+        </div>
+
+        <!-- Post Task Form -->
+        <div class="card">
+          <form id="postTaskForm" novalidate>
+            <div class="form-group">
+              <label for="title" class="form-label">Task Title</label>
+              <input 
+                type="text" 
+                id="title" 
+                name="title" 
+                class="form-input" 
+                placeholder="e.g., Design a logo for my website" 
+                required
+                maxlength="100"
+              >
+              <div class="form-error" id="titleError"></div>
+            </div>
+
+            <div class="form-group">
+              <label for="description" class="form-label">Description</label>
+              <textarea 
+                id="description" 
+                name="description" 
+                class="form-textarea" 
+                placeholder="Provide detailed instructions for the task..." 
+                required
+                rows="6"
+                maxlength="2000"
+              ></textarea>
+              <div class="form-error" id="descriptionError"></div>
+              <div class="text-xs text-secondary mt-2">
+                <span id="charCount">0</span>/2000 characters
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="coins" class="form-label">Coins to Offer</label>
+              <div class="input-group">
+                <span class="input-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M12 6v6l4 2"/>
+                  </svg>
+                </span>
+                <input 
+                  type="number" 
+                  id="coins" 
+                  name="coins" 
+                  class="form-input" 
+                  placeholder="Enter coin amount" 
+                  required
+                  min="1"
+                  step="1"
+                >
+              </div>
+              <div class="form-error" id="coinsError"></div>
+              <div class="text-xs text-secondary mt-2">
+                Minimum: 1 coin
+              </div>
+            </div>
+
+            <div class="flex gap-3">
+              <button type="submit" class="btn btn-primary flex-1">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                  <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                  <polyline points="17 21 17 13 7 13 7 21"/>
+                  <polyline points="7 3 7 8 15 8"/>
+                </svg>
+                Post Task
+              </button>
+              <a href="dashboard.html" class="btn btn-outline">
+                Cancel
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <!-- Bottom Navigation (Mobile) -->
+    <nav class="bottom-nav">
+      <a href="dashboard.html" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        <span>Home</span>
+      </a>
+      <a href="browse-tasks.html" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="8" y1="6" x2="21" y2="6"/>
+          <line x1="8" y1="12" x2="21" y2="12"/>
+          <line x1="8" y1="18" x2="21" y2="18"/>
+          <line x1="3" y1="6" x2="3.01" y2="6"/>
+          <line x1="3" y1="12" x2="3.01" y2="12"/>
+          <line x1="3" y1="18" x2="3.01" y2="18"/>
+        </svg>
+        <span>Browse</span>
+      </a>
+      <a href="post-task.html" class="nav-item active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="12" y1="5" x2="12" y2="19"/>
+          <line x1="5" y1="12" x2="19" y2="12"/>
+        </svg>
+        <span>Post</span>
+      </a>
+      <a href="my-tasks.html" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+          <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+        </svg>
+        <span>Tasks</span>
+      </a>
+      <a href="profile.html" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        <span>Profile</span>
+      </a>
+    </nav>
+  </div>
+
+  <script src="../js/utils.js"></script>
+  <script src="../js/components.js"></script>
+  <script src="../js/api.js"></script>
+  <script>
+    // Check authentication
+    utils.requireAuth();
+    
+    // Set active navigation
+    utils.setActiveNav('post-task');
+
+    let currentUser = null;
+
+    // Load user profile
+    async function loadUserProfile() {
+      try {
+        const profileResponse = await apiService.auth.getProfile();
+        currentUser = profileResponse.user || profileResponse;
+
+        // Update balance display
+        const userCoins = document.getElementById('userCoins');
+        userCoins.textContent = `${utils.formatNumber(currentUser.coins || 0)} Coins`;
+
+        // Update sidebar
+        const sidebarUserInfo = document.getElementById('sidebarUserInfo');
+        if (sidebarUserInfo) {
+          sidebarUserInfo.innerHTML = `
+            <div class="flex items-center gap-3">
+              <div class="user-avatar" style="width: 40px; height: 40px; background: linear-gradient(135deg, var(--color-primary), var(--color-secondary)); display: flex; align-items: center; justify-content: center; border-radius: var(--radius-full); color: white; font-weight: 600; font-size: 14px;">
+                ${utils.getInitials(currentUser.name)}
+              </div>
+              <div class="flex-1" style="min-width: 0;">
+                <div class="font-medium text-sm" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${utils.sanitizeHTML(currentUser.name)}</div>
+                <div class="text-xs text-secondary">${utils.formatNumber(currentUser.coins || 0)} coins</div>
+              </div>
+            </div>
+          `;
+        }
+      } catch (error) {
+        console.error('Failed to load user profile:', error);
+        uiComponents.toast.error(utils.parseError(error));
+      }
+    }
+
+    // Form elements
+    const postTaskForm = document.getElementById('postTaskForm');
+    const titleInput = document.getElementById('title');
+    const descriptionInput = document.getElementById('description');
+    const coinsInput = document.getElementById('coins');
+    const titleError = document.getElementById('titleError');
+    const descriptionError = document.getElementById('descriptionError');
+    const coinsError = document.getElementById('coinsError');
+    const charCount = document.getElementById('charCount');
+
+    // Character counter
+    descriptionInput.addEventListener('input', () => {
+      charCount.textContent = descriptionInput.value.length;
+      descriptionInput.classList.remove('error');
+      descriptionError.textContent = '';
+    });
+
+    // Clear errors on input
+    titleInput.addEventListener('input', () => {
+      titleInput.classList.remove('error');
+      titleError.textContent = '';
+    });
+
+    coinsInput.addEventListener('input', () => {
+      coinsInput.classList.remove('error');
+      coinsError.textContent = '';
+    });
+
+    // Form submission
+    postTaskForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Clear previous errors
+      titleInput.classList.remove('error');
+      descriptionInput.classList.remove('error');
+      coinsInput.classList.remove('error');
+      titleError.textContent = '';
+      descriptionError.textContent = '';
+      coinsError.textContent = '';
+
+      // Get form values
+      const title = titleInput.value.trim();
+      const description = descriptionInput.value.trim();
+      const coins = parseInt(coinsInput.value);
+
+      // Validate
+      let hasError = false;
+
+      if (!title) {
+        titleInput.classList.add('error');
+        titleError.textContent = 'Title is required';
+        hasError = true;
+      } else if (title.length < 5) {
+        titleInput.classList.add('error');
+        titleError.textContent = 'Title must be at least 5 characters';
+        hasError = true;
+      }
+
+      if (!description) {
+        descriptionInput.classList.add('error');
+        descriptionError.textContent = 'Description is required';
+        hasError = true;
+      } else if (description.length < 10) {
+        descriptionInput.classList.add('error');
+        descriptionError.textContent = 'Description must be at least 10 characters';
+        hasError = true;
+      }
+
+      if (!coins || isNaN(coins)) {
+        coinsInput.classList.add('error');
+        coinsError.textContent = 'Coins amount is required';
+        hasError = true;
+      } else if (coins < 1) {
+        coinsInput.classList.add('error');
+        coinsError.textContent = 'Minimum 1 coin required';
+        hasError = true;
+      } else if (currentUser && coins > currentUser.coins) {
+        coinsInput.classList.add('error');
+        coinsError.textContent = `Insufficient balance. You have ${utils.formatNumber(currentUser.coins)} coins`;
+        hasError = true;
+      }
+
+      if (hasError) return;
+
+      // Submit task
+      const submitBtn = postTaskForm.querySelector('button[type="submit"]');
+      utils.showLoading(submitBtn);
+
+      try {
+        await apiService.tasks.create({
+          title,
+          description,
+          coins,
+        });
+
+        uiComponents.toast.success('Task posted successfully!');
+        
+        // Redirect to my tasks after a short delay
+        setTimeout(() => {
+          window.location.href = 'my-tasks.html';
+        }, 1000);
+      } catch (error) {
+        console.error('Failed to post task:', error);
+        uiComponents.toast.error(utils.parseError(error));
+        utils.hideLoading(submitBtn);
+      }
+    });
+
+    // Initialize
+    loadUserProfile();
+  </script>
+</body>
+</html>
