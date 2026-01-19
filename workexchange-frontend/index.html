@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="WorkExchange - Trade skills and tasks with coins. A platform to exchange work and help each other grow.">
+  <title>WorkExchange - Trade Skills & Tasks</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+      color: white;
+      text-align: center;
+      padding: var(--space-4);
+    }
+
+    .hero-content {
+      max-width: 600px;
+    }
+
+    .hero-title {
+      font-size: var(--font-size-4xl);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-4);
+      color: white;
+    }
+
+    .hero-subtitle {
+      font-size: var(--font-size-xl);
+      margin-bottom: var(--space-8);
+      opacity: 0.95;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: var(--space-4);
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .hero-buttons .btn {
+      min-width: 150px;
+    }
+
+    .btn-light {
+      background-color: white;
+      color: var(--color-primary);
+    }
+
+    .btn-light:hover {
+      background-color: var(--color-gray-100);
+      transform: translateY(-2px);
+    }
+
+    .features {
+      padding: var(--space-16) var(--space-4);
+      background: var(--color-background);
+    }
+
+    .features-grid {
+      max-width: var(--max-content-width);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--space-8);
+    }
+
+    .feature-card {
+      text-align: center;
+      padding: var(--space-6);
+    }
+
+    .feature-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto var(--space-4);
+      color: var(--color-primary);
+    }
+
+    .feature-title {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-semibold);
+      margin-bottom: var(--space-2);
+      color: var(--color-text-primary);
+    }
+
+    .feature-description {
+      color: var(--color-text-secondary);
+      line-height: var(--line-height-relaxed);
+    }
+
+    @media (min-width: 768px) {
+      .hero-title {
+        font-size: 3.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1 class="hero-title">Welcome to WorkExchange</h1>
+      <p class="hero-subtitle">Trade skills and tasks using coins. Help others, earn rewards, and grow together.</p>
+      <div class="hero-buttons">
+        <a href="pages/register.html" class="btn btn-lg btn-light">Get Started</a>
+        <a href="pages/login.html" class="btn btn-lg btn-outline" style="border-color: white; color: white;">Login</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features">
+    <div class="features-grid">
+      <div class="feature-card">
+        <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M12 6v12M9 12h6"/>
+        </svg>
+        <h3 class="feature-title">Earn Coins</h3>
+        <p class="feature-description">Complete tasks for others and earn coins that you can use to get help with your own projects.</p>
+      </div>
+
+      <div class="feature-card">
+        <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+        <h3 class="feature-title">Build Community</h3>
+        <p class="feature-description">Connect with talented people, share skills, and build meaningful professional relationships.</p>
+      </div>
+
+      <div class="feature-card">
+        <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+        </svg>
+        <h3 class="feature-title">Track Progress</h3>
+        <p class="feature-description">Monitor your tasks, earnings, and reputation with a comprehensive dashboard and analytics.</p>
+      </div>
+    </div>
+  </section>
+
+  <script src="js/utils.js"></script>
+  <script>
+    // Redirect to dashboard if already logged in
+    if (utils.isAuthenticated()) {
+      window.location.href = 'pages/dashboard.html';
+    }
+  </script>
+</body>
+</html>

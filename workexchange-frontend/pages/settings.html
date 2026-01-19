@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Settings - WorkExchange">
+  <title>Settings - WorkExchange</title>
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Sidebar (Desktop) -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h1 class="sidebar-logo">WorkExchange</h1>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="sidebar-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+          Dashboard
+        </a>
+        <a href="browse-tasks.html" class="sidebar-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="8" y1="6" x2="21" y2="6"/>
+            <line x1="8" y1="12" x2="21" y2="12"/>
+            <line x1="8" y1="18" x2="21" y2="18"/>
+            <line x1="3" y1="6" x2="3.01" y2="6"/>
+            <line x1="3" y1="12" x2="3.01" y2="12"/>
+            <line x1="3" y1="18" x2="3.01" y2="18"/>
+          </svg>
+          Browse Tasks
+        </a>
+        <a href="post-task.html" class="sidebar-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="5" x2="12" y2="19"/>
+            <line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+          Post Task
+        </a>
+        <a href="my-tasks.html" class="sidebar-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+          </svg>
+          My Tasks
+        </a>
+        <a href="profile.html" class="sidebar-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+          Profile
+        </a>
+        <a href="settings.html" class="sidebar-item active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M12 1v6m0 6v6M5.6 5.6l4.2 4.2m4.2 4.2l4.2 4.2M1 12h6m6 0h6M5.6 18.4l4.2-4.2m4.2-4.2l4.2-4.2"/>
+          </svg>
+          Settings
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-profile-card">
+          <div class="user-avatar" id="sidebarAvatar"></div>
+          <div class="user-name" id="sidebarName">Loading...</div>
+          <div class="coin-display" id="sidebarCoins">
+            <svg class="coin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 6v12M9 12h6"/>
+            </svg>
+            <span>0</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="container">
+        <h1 class="mb-6">Settings</h1>
+
+        <!-- Profile Settings Card -->
+        <div class="card mb-6">
+          <div class="card-header">
+            <h2 class="card-title">Profile Information</h2>
+            <p class="card-description">Update your profile details and preferences</p>
+          </div>
+          <div class="card-body">
+            <form id="profileForm">
+              <div class="form-group">
+                <label for="name" class="form-label">Full Name</label>
+                <input 
+                  type="text" 
+                  id="name" 
+                  name="name" 
+                  class="form-input" 
+                  placeholder="Enter your name"
+                  required
+                >
+                <div class="form-error" id="nameError"></div>
+              </div>
+
+              <div class="form-group">
+                <label for="email" class="form-label">Email</label>
+                <input 
+                  type="email" 
+                  id="email" 
+                  name="email" 
+                  class="form-input" 
+                  placeholder="Enter your email"
+                  disabled
+                  title="Email cannot be changed"
+                >
+                <p class="text-xs text-secondary mt-2">Email address cannot be changed</p>
+              </div>
+
+              <div class="form-group">
+                <label for="bio" class="form-label">Bio</label>
+                <textarea 
+                  id="bio" 
+                  name="bio" 
+                  class="form-textarea" 
+                  placeholder="Tell us about yourself"
+                  rows="4"
+                ></textarea>
+                <div class="form-error" id="bioError"></div>
+              </div>
+
+              <div class="form-group">
+                <label for="skills" class="form-label">Skills</label>
+                <input 
+                  type="text" 
+                  id="skills" 
+                  name="skills" 
+                  class="form-input" 
+                  placeholder="Enter skills (comma-separated)"
+                >
+                <p class="text-xs text-secondary mt-2">Separate skills with commas (e.g., JavaScript, Design, Writing)</p>
+                <div class="form-error" id="skillsError"></div>
+              </div>
+
+              <div class="flex gap-3 justify-end">
+                <button type="button" class="btn btn-secondary" id="cancelBtn">Cancel</button>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Account Actions Card -->
+        <div class="card mb-6">
+          <div class="card-header">
+            <h2 class="card-title">Account Actions</h2>
+            <p class="card-description">Manage your account settings</p>
+          </div>
+          <div class="card-body">
+            <button class="btn btn-error" id="logoutBtn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                <polyline points="16 17 21 12 16 7"/>
+                <line x1="21" y1="12" x2="9" y2="12"/>
+              </svg>
+              Logout
+            </button>
+          </div>
+        </div>
+
+        <!-- About Card -->
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">About WorkExchange</h2>
+          </div>
+          <div class="card-body">
+            <p class="text-secondary">WorkExchange is a platform where you can trade skills and tasks using coins. Complete tasks to earn coins and use them to get help with your own tasks.</p>
+            <div class="mt-4">
+              <p class="text-sm text-secondary">Version 1.0.0</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Bottom Navigation (Mobile) -->
+  <nav class="bottom-nav">
+    <a href="dashboard.html" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+        <polyline points="9 22 9 12 15 12 15 22"/>
+      </svg>
+      <span>Home</span>
+    </a>
+    <a href="browse-tasks.html" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="8" y1="6" x2="21" y2="6"/>
+        <line x1="8" y1="12" x2="21" y2="12"/>
+        <line x1="8" y1="18" x2="21" y2="18"/>
+        <line x1="3" y1="6" x2="3.01" y2="6"/>
+        <line x1="3" y1="12" x2="3.01" y2="12"/>
+        <line x1="3" y1="18" x2="3.01" y2="18"/>
+      </svg>
+      <span>Browse</span>
+    </a>
+    <a href="post-task.html" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="12" y1="5" x2="12" y2="19"/>
+        <line x1="5" y1="12" x2="19" y2="12"/>
+      </svg>
+      <span>Post</span>
+    </a>
+    <a href="my-tasks.html" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+      </svg>
+      <span>Tasks</span>
+    </a>
+    <a href="settings.html" class="nav-item active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="3"/>
+        <path d="M12 1v6m0 6v6M5.6 5.6l4.2 4.2m4.2 4.2l4.2 4.2M1 12h6m6 0h6M5.6 18.4l4.2-4.2m4.2-4.2l4.2-4.2"/>
+      </svg>
+      <span>Settings</span>
+    </a>
+  </nav>
+
+  <script src="../js/utils.js"></script>
+  <script src="../js/components.js"></script>
+  <script src="../js/api.js"></script>
+  <script>
+    // Check authentication
+    utils.requireAuth();
+    utils.setActiveNav('settings');
+
+    let currentUser = null;
+    const profileForm = document.getElementById('profileForm');
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    const bioInput = document.getElementById('bio');
+    const skillsInput = document.getElementById('skills');
+    const cancelBtn = document.getElementById('cancelBtn');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    // Load user profile
+    async function loadProfile() {
+      try {
+        const response = await apiService.auth.getProfile();
+        currentUser = response.user || response;
+
+        // Populate form
+        nameInput.value = currentUser.name || '';
+        emailInput.value = currentUser.email || '';
+        bioInput.value = currentUser.bio || '';
+        skillsInput.value = currentUser.skills ? currentUser.skills.join(', ') : '';
+
+        // Update sidebar
+        updateSidebar();
+      } catch (error) {
+        console.error('Failed to load profile:', error);
+        uiComponents.toast.error('Failed to load profile data');
+      }
+    }
+
+    // Update sidebar user info
+    function updateSidebar() {
+      if (!currentUser) return;
+
+      const sidebarAvatar = document.getElementById('sidebarAvatar');
+      const sidebarName = document.getElementById('sidebarName');
+      const sidebarCoins = document.getElementById('sidebarCoins');
+
+      sidebarAvatar.textContent = utils.getInitials(currentUser.name);
+      sidebarName.textContent = currentUser.name || 'User';
+      sidebarCoins.querySelector('span').textContent = utils.formatNumber(currentUser.coins || 0);
+    }
+
+    // Clear errors on input
+    nameInput.addEventListener('input', () => {
+      nameInput.classList.remove('error');
+      document.getElementById('nameError').textContent = '';
+    });
+
+    bioInput.addEventListener('input', () => {
+      bioInput.classList.remove('error');
+      document.getElementById('bioError').textContent = '';
+    });
+
+    skillsInput.addEventListener('input', () => {
+      skillsInput.classList.remove('error');
+      document.getElementById('skillsError').textContent = '';
+    });
+
+    // Cancel button - reset form
+    cancelBtn.addEventListener('click', () => {
+      if (currentUser) {
+        nameInput.value = currentUser.name || '';
+        bioInput.value = currentUser.bio || '';
+        skillsInput.value = currentUser.skills ? currentUser.skills.join(', ') : '';
+      }
+      
+      // Clear errors
+      nameInput.classList.remove('error');
+      bioInput.classList.remove('error');
+      skillsInput.classList.remove('error');
+      document.getElementById('nameError').textContent = '';
+      document.getElementById('bioError').textContent = '';
+      document.getElementById('skillsError').textContent = '';
+    });
+
+    // Form submission
+    profileForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Clear previous errors
+      nameInput.classList.remove('error');
+      bioInput.classList.remove('error');
+      skillsInput.classList.remove('error');
+      document.getElementById('nameError').textContent = '';
+      document.getElementById('bioError').textContent = '';
+      document.getElementById('skillsError').textContent = '';
+
+      // Get form values
+      const name = nameInput.value.trim();
+      const bio = bioInput.value.trim();
+      const skillsStr = skillsInput.value.trim();
+
+      // Validate
+      let hasError = false;
+
+      if (!name) {
+        nameInput.classList.add('error');
+        document.getElementById('nameError').textContent = 'Name is required';
+        hasError = true;
+      } else if (name.length < 2) {
+        nameInput.classList.add('error');
+        document.getElementById('nameError').textContent = 'Name must be at least 2 characters';
+        hasError = true;
+      }
+
+      if (hasError) return;
+
+      // Parse skills
+      const skills = skillsStr ? skillsStr.split(',').map(s => s.trim()).filter(s => s) : [];
+
+      // Prepare update data
+      const updateData = {
+        name,
+        bio,
+        skills,
+      };
+
+      // Submit update
+      const submitBtn = profileForm.querySelector('button[type="submit"]');
+      utils.showLoading(submitBtn);
+
+      try {
+        const response = await apiService.users.update(currentUser._id, updateData);
+        currentUser = response.user || response;
+        
+        uiComponents.toast.success('Profile updated successfully!');
+        updateSidebar();
+        utils.hideLoading(submitBtn);
+      } catch (error) {
+        console.error('Failed to update profile:', error);
+        uiComponents.toast.error(utils.parseError(error));
+        utils.hideLoading(submitBtn);
+      }
+    });
+
+    // Logout button
+    logoutBtn.addEventListener('click', async () => {
+      const confirmed = await uiComponents.modal.confirm({
+        title: 'Logout',
+        message: 'Are you sure you want to logout?',
+        confirmText: 'Logout',
+        confirmClass: 'btn-error',
+      });
+
+      if (confirmed) {
+        apiService.auth.logout();
+      }
+    });
+
+    // Initialize
+    loadProfile();
+  </script>
+</body>
+</html>
