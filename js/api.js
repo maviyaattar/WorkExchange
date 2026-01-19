@@ -1,4 +1,4 @@
-// ===============================
+ // ===============================
 // API CONFIG
 // ===============================
 const API_BASE = "https://workbackend-egr6.onrender.com";
@@ -126,6 +126,26 @@ export function getMyAssignedTasks() {
   return request("/api/tasks/my/assigned");
 }
 
+
+    const apiService = {
+  registerUser,
+  loginUser,
+  getMe,
+  logout,
+  updateProfile,
+  getUserProfile,
+  createTask,
+  getAllTasks,
+  getMyPostedTasks,
+  getMyAssignedTasks,
+  assignTask,
+  submitTask,
+  approveTask,
+  giveReview,
+  getUserReviews
+};
+
+export default apiService;
 // Assign task
 export function assignTask(taskId) {
   return request(`/api/tasks/assign/${taskId}`, {
