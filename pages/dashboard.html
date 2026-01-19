@@ -172,7 +172,15 @@
   <script src="../js/components.js"></script>
   <script src="../js/api.js"></script>
   <script>
-    // Check authentication
+    /**
+     * Dashboard Page Script
+     * 
+     * This is a protected page - requires valid JWT token
+     * The requireAuth() check ensures only authenticated users can access this page
+     * If token is missing or invalid, user is redirected to login page
+     */
+
+    // Check authentication - redirect to login if not authenticated
     utils.requireAuth();
     
     // Set active navigation

@@ -1402,6 +1402,73 @@ a:hover {
 }
 
 /* ===================================
+   Mobile Responsive - Auth Pages
+   =================================== */
+@media (max-width: 480px) {
+  /* Reduce padding on mobile for better space utilization */
+  .auth-container {
+    padding: var(--space-3);
+  }
+  
+  .auth-card {
+    padding: var(--space-6);
+    border-radius: var(--radius-lg);
+  }
+  
+  /* Adjust font sizes for mobile */
+  .auth-logo {
+    font-size: var(--font-size-2xl);
+  }
+  
+  .auth-title {
+    font-size: var(--font-size-xl);
+  }
+  
+  .auth-subtitle {
+    font-size: var(--font-size-xs);
+  }
+  
+  /* Ensure form elements stack properly and have adequate touch targets */
+  .form-group {
+    margin-bottom: var(--space-4);
+  }
+  
+  .form-input {
+    min-height: 44px; /* Adequate touch target size for mobile */
+    font-size: var(--font-size-base); /* Prevent zoom on iOS */
+  }
+  
+  .btn {
+    min-height: 44px; /* Adequate touch target size for mobile */
+    font-size: var(--font-size-base);
+  }
+  
+  .input-icon,
+  .input-action {
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 360px) {
+  /* Extra small mobile devices */
+  .auth-card {
+    padding: var(--space-4);
+  }
+  
+  .auth-logo {
+    font-size: var(--font-size-xl);
+  }
+  
+  .auth-title {
+    font-size: var(--font-size-lg);
+  }
+}
+
+/* ===================================
    Responsive Design - Tablet & Desktop
    =================================== */
 @media (min-width: 768px) {
