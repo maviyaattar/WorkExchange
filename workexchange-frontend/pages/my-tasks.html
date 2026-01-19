@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Manage your posted and assigned tasks on WorkExchange">
+  <title>My Tasks - WorkExchange</title>
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Desktop Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h1 class="sidebar-logo">WorkExchange</h1>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="sidebar-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+          <span>Dashboard</span>
+        </a>
+        <a href="browse-tasks.html" class="sidebar-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="8" y1="6" x2="21" y2="6"/>
+            <line x1="8" y1="12" x2="21" y2="12"/>
+            <line x1="8" y1="18" x2="21" y2="18"/>
+            <line x1="3" y1="6" x2="3.01" y2="6"/>
+            <line x1="3" y1="12" x2="3.01" y2="12"/>
+            <line x1="3" y1="18" x2="3.01" y2="18"/>
+          </svg>
+          <span>Browse Tasks</span>
+        </a>
+        <a href="post-task.html" class="sidebar-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="5" x2="12" y2="19"/>
+            <line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+          <span>Post Task</span>
+        </a>
+        <a href="my-tasks.html" class="sidebar-item active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+          </svg>
+          <span>My Tasks</span>
+        </a>
+        <a href="profile.html" class="sidebar-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+          <span>Profile</span>
+        </a>
+        <a href="settings.html" class="sidebar-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M12 1v6m0 6v6m7.071-13.071l-4.243 4.243m-5.656 0L4.93 4.93m0 14.14l4.243-4.242m5.656 0l4.243 4.243"/>
+          </svg>
+          <span>Settings</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div id="sidebarUserInfo" class="user-info">
+          <div class="skeleton skeleton-avatar"></div>
+          <div class="skeleton skeleton-text" style="width: 100px;"></div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="container">
+        <div class="page-header mb-6">
+          <h1 class="text-3xl font-bold">My Tasks</h1>
+          <p class="text-secondary mt-2">Manage tasks you posted and are assigned to</p>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs mb-6">
+          <button class="tab-btn active" data-tab="posted">Posted by Me</button>
+          <button class="tab-btn" data-tab="assigned">Assigned to Me</button>
+        </div>
+
+        <!-- Posted Tasks Tab -->
+        <div id="postedTab" class="tab-content active">
+          <div id="postedTasksList">
+            <!-- Skeleton loaders -->
+            <div class="task-card">
+              <div class="skeleton skeleton-title"></div>
+              <div class="skeleton skeleton-text"></div>
+              <div class="skeleton skeleton-text" style="width: 60%;"></div>
+            </div>
+            <div class="task-card">
+              <div class="skeleton skeleton-title"></div>
+              <div class="skeleton skeleton-text"></div>
+              <div class="skeleton skeleton-text" style="width: 60%;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Assigned Tasks Tab -->
+        <div id="assignedTab" class="tab-content">
+          <div id="assignedTasksList">
+            <!-- Skeleton loaders -->
+            <div class="task-card">
+              <div class="skeleton skeleton-title"></div>
+              <div class="skeleton skeleton-text"></div>
+              <div class="skeleton skeleton-text" style="width: 60%;"></div>
+            </div>
+            <div class="task-card">
+              <div class="skeleton skeleton-title"></div>
+              <div class="skeleton skeleton-text"></div>
+              <div class="skeleton skeleton-text" style="width: 60%;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Bottom Navigation (Mobile) -->
+    <nav class="bottom-nav">
+      <a href="dashboard.html" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        <span>Home</span>
+      </a>
+      <a href="browse-tasks.html" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="8" y1="6" x2="21" y2="6"/>
+          <line x1="8" y1="12" x2="21" y2="12"/>
+          <line x1="8" y1="18" x2="21" y2="18"/>
+          <line x1="3" y1="6" x2="3.01" y2="6"/>
+          <line x1="3" y1="12" x2="3.01" y2="12"/>
+          <line x1="3" y1="18" x2="3.01" y2="18"/>
+        </svg>
+        <span>Browse</span>
+      </a>
+      <a href="post-task.html" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="12" y1="5" x2="12" y2="19"/>
+          <line x1="5" y1="12" x2="19" y2="12"/>
+        </svg>
+        <span>Post</span>
+      </a>
+      <a href="my-tasks.html" class="nav-item active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+          <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+        </svg>
+        <span>Tasks</span>
+      </a>
+      <a href="profile.html" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        <span>Profile</span>
+      </a>
+    </nav>
+  </div>
+
+  <script src="../js/utils.js"></script>
+  <script src="../js/components.js"></script>
+  <script src="../js/api.js"></script>
+  <script>
+    // Check authentication
+    utils.requireAuth();
+    
+    // Set active navigation
+    utils.setActiveNav('my-tasks');
+
+    let currentUser = null;
+    let postedTasks = [];
+    let assignedTasks = [];
+    let currentTab = 'posted';
+
+    // Load user profile
+    async function loadUserProfile() {
+      try {
+        const profileResponse = await apiService.auth.getProfile();
+        currentUser = profileResponse.user || profileResponse;
+
+        const sidebarUserInfo = document.getElementById('sidebarUserInfo');
+        if (sidebarUserInfo) {
+          sidebarUserInfo.innerHTML = `
+            <div class="flex items-center gap-3">
+              <div class="user-avatar" style="width: 40px; height: 40px; background: linear-gradient(135deg, var(--color-primary), var(--color-secondary)); display: flex; align-items: center; justify-content: center; border-radius: var(--radius-full); color: white; font-weight: 600; font-size: 14px;">
+                ${utils.getInitials(currentUser.name)}
+              </div>
+              <div class="flex-1" style="min-width: 0;">
+                <div class="font-medium text-sm" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${utils.sanitizeHTML(currentUser.name)}</div>
+                <div class="text-xs text-secondary">${utils.formatNumber(currentUser.coins || 0)} coins</div>
+              </div>
+            </div>
+          `;
+        }
+      } catch (error) {
+        console.error('Failed to load user profile:', error);
+      }
+    }
+
+    // Render posted task card
+    function renderPostedTaskCard(task) {
+      const assignedUser = task.assignedTo ? (task.assignedTo.name || 'Unknown User') : 'Not assigned';
+      const showReviewButton = task.status === 'submitted';
+
+      return `
+        <div class="task-card" data-task-id="${task._id}">
+          <div class="task-header">
+            <div class="flex-1">
+              <h3 class="task-title">${utils.sanitizeHTML(task.title)}</h3>
+              <span class="badge ${utils.getStatusBadgeClass(task.status)}">
+                ${utils.getStatusDisplayText(task.status)}
+              </span>
+            </div>
+            <div class="task-coins">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 6v6l4 2"/>
+              </svg>
+              ${utils.formatNumber(task.coins)}
+            </div>
+          </div>
+          
+          <div class="task-description">
+            ${utils.sanitizeHTML(task.description)}
+          </div>
+          
+          <div class="task-meta">
+            <div class="task-meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+              <span>Assigned to: ${utils.sanitizeHTML(assignedUser)}</span>
+            </div>
+            <div class="task-meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+              <span>${utils.formatDate(task.createdAt)}</span>
+            </div>
+          </div>
+          
+          ${showReviewButton ? `
+            <div class="task-actions">
+              <button class="btn btn-primary flex-1" onclick="openReviewModal('${task._id}')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                </svg>
+                Review & Approve
+              </button>
+            </div>
+          ` : ''}
+        </div>
+      `;
+    }
+
+    // Render assigned task card
+    function renderAssignedTaskCard(task) {
+      const taskOwner = task.owner ? (task.owner.name || 'Unknown') : 'Unknown';
+      const showSubmitButton = task.status === 'assigned';
+
+      return `
+        <div class="task-card" data-task-id="${task._id}">
+          <div class="task-header">
+            <div class="flex-1">
+              <h3 class="task-title">${utils.sanitizeHTML(task.title)}</h3>
+              <span class="badge ${utils.getStatusBadgeClass(task.status)}">
+                ${utils.getStatusDisplayText(task.status)}
+              </span>
+            </div>
+            <div class="task-coins">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 6v6l4 2"/>
+              </svg>
+              ${utils.formatNumber(task.coins)}
+            </div>
+          </div>
+          
+          <div class="task-description">
+            ${utils.sanitizeHTML(task.description)}
+          </div>
+          
+          <div class="task-meta">
+            <div class="task-meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+              <span>Posted by: ${utils.sanitizeHTML(taskOwner)}</span>
+            </div>
+            <div class="task-meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+              <span>${utils.formatDate(task.createdAt)}</span>
+            </div>
+          </div>
+          
+          ${showSubmitButton ? `
+            <div class="task-actions">
+              <button class="btn btn-primary flex-1" onclick="openSubmitModal('${task._id}')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                  <polyline points="22 4 12 14.01 9 11.01"/>
+                </svg>
+                Submit Work
+              </button>
+            </div>
+          ` : ''}
+        </div>
+      `;
+    }
+
+    // Load posted tasks
+    async function loadPostedTasks() {
+      try {
+        const response = await apiService.tasks.getPosted();
+        postedTasks = response.tasks || response || [];
+
+        const postedTasksList = document.getElementById('postedTasksList');
+        if (postedTasks.length === 0) {
+          postedTasksList.innerHTML = `
+            <div class="empty-state">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="64" height="64">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+              </svg>
+              <h3>No Posted Tasks</h3>
+              <p>You haven't posted any tasks yet</p>
+              <a href="post-task.html" class="btn btn-primary mt-4">Post Your First Task</a>
+            </div>
+          `;
+        } else {
+          postedTasksList.innerHTML = postedTasks.map(task => renderPostedTaskCard(task)).join('');
+        }
+      } catch (error) {
+        console.error('Failed to load posted tasks:', error);
+        uiComponents.toast.error(utils.parseError(error));
+        document.getElementById('postedTasksList').innerHTML = `
+          <div class="empty-state">
+            <p class="text-error">Failed to load tasks. Please try again.</p>
+          </div>
+        `;
+      }
+    }
+
+    // Load assigned tasks
+    async function loadAssignedTasks() {
+      try {
+        const response = await apiService.tasks.getAssigned();
+        assignedTasks = response.tasks || response || [];
+
+        const assignedTasksList = document.getElementById('assignedTasksList');
+        if (assignedTasks.length === 0) {
+          assignedTasksList.innerHTML = `
+            <div class="empty-state">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="64" height="64">
+                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+              </svg>
+              <h3>No Assigned Tasks</h3>
+              <p>You don't have any assigned tasks</p>
+              <a href="browse-tasks.html" class="btn btn-primary mt-4">Browse Available Tasks</a>
+            </div>
+          `;
+        } else {
+          assignedTasksList.innerHTML = assignedTasks.map(task => renderAssignedTaskCard(task)).join('');
+        }
+      } catch (error) {
+        console.error('Failed to load assigned tasks:', error);
+        uiComponents.toast.error(utils.parseError(error));
+        document.getElementById('assignedTasksList').innerHTML = `
+          <div class="empty-state">
+            <p class="text-error">Failed to load tasks. Please try again.</p>
+          </div>
+        `;
+      }
+    }
+
+    // Tab switching
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tab = btn.dataset.tab;
+        currentTab = tab;
+
+        // Update tab buttons
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        // Update tab content
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        document.getElementById(`${tab}Tab`).classList.add('active');
+      });
+    });
+
+    // Open review modal
+    window.openReviewModal = function(taskId) {
+      let selectedRating = 0;
+
+      const content = `
+        <div class="form-group">
+          <label class="form-label">Rating</label>
+          <div class="rating-input" style="display: flex; gap: 8px; font-size: 32px; cursor: pointer;">
+            <span class="star" data-rating="1">☆</span>
+            <span class="star" data-rating="2">☆</span>
+            <span class="star" data-rating="3">☆</span>
+            <span class="star" data-rating="4">☆</span>
+            <span class="star" data-rating="5">☆</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="reviewText">Review</label>
+          <textarea id="reviewText" class="form-input" rows="4" placeholder="Write your review..."></textarea>
+        </div>
+      `;
+
+      const footer = `
+        <button class="btn btn-secondary" data-action="cancel">Cancel</button>
+        <button class="btn btn-primary" data-action="approve">Approve Task</button>
+      `;
+
+      const { backdrop, modal, close } = uiComponents.modal.show({
+        title: 'Review & Approve Task',
+        content,
+        footer,
+        closeOnBackdrop: false,
+      });
+
+      // Star rating interaction
+      const stars = modal.querySelectorAll('.star');
+      stars.forEach(star => {
+        star.addEventListener('click', () => {
+          selectedRating = parseInt(star.dataset.rating);
+          stars.forEach((s, idx) => {
+            s.textContent = idx < selectedRating ? '★' : '☆';
+            s.style.color = idx < selectedRating ? '#fbbf24' : '#d1d5db';
+          });
+        });
+
+        star.addEventListener('mouseenter', () => {
+          const rating = parseInt(star.dataset.rating);
+          stars.forEach((s, idx) => {
+            s.textContent = idx < rating ? '★' : '☆';
+            s.style.color = idx < rating ? '#fbbf24' : '#d1d5db';
+          });
+        });
+      });
+
+      modal.querySelector('.rating-input').addEventListener('mouseleave', () => {
+        stars.forEach((s, idx) => {
+          s.textContent = idx < selectedRating ? '★' : '☆';
+          s.style.color = idx < selectedRating ? '#fbbf24' : '#d1d5db';
+        });
+      });
+
+      // Handle buttons
+      modal.addEventListener('click', async (e) => {
+        const action = e.target.dataset.action;
+        
+        if (action === 'cancel') {
+          close();
+        } else if (action === 'approve') {
+          const reviewText = modal.querySelector('#reviewText').value.trim();
+
+          if (selectedRating === 0) {
+            uiComponents.toast.error('Please select a rating');
+            return;
+          }
+
+          if (!reviewText) {
+            uiComponents.toast.error('Please write a review');
+            return;
+          }
+
+          try {
+            e.target.disabled = true;
+            e.target.textContent = 'Approving...';
+
+            await apiService.tasks.approve(taskId, {
+              rating: selectedRating,
+              review: reviewText,
+            });
+
+            uiComponents.toast.success('Task approved successfully!');
+            close();
+            await loadPostedTasks();
+          } catch (error) {
+            console.error('Failed to approve task:', error);
+            uiComponents.toast.error(utils.parseError(error));
+            e.target.disabled = false;
+            e.target.textContent = 'Approve Task';
+          }
+        }
+      });
+    };
+
+    // Open submit modal
+    window.openSubmitModal = function(taskId) {
+      const content = `
+        <div class="form-group">
+          <label class="form-label" for="submissionNotes">Submission Notes</label>
+          <textarea id="submissionNotes" class="form-input" rows="6" placeholder="Describe the work you've completed..." required></textarea>
+          <small class="form-help">Provide details about your completed work</small>
+        </div>
+      `;
+
+      const footer = `
+        <button class="btn btn-secondary" data-action="cancel">Cancel</button>
+        <button class="btn btn-primary" data-action="submit">Submit Work</button>
+      `;
+
+      const { backdrop, modal, close } = uiComponents.modal.show({
+        title: 'Submit Your Work',
+        content,
+        footer,
+        closeOnBackdrop: false,
+      });
+
+      // Handle buttons
+      modal.addEventListener('click', async (e) => {
+        const action = e.target.dataset.action;
+        
+        if (action === 'cancel') {
+          close();
+        } else if (action === 'submit') {
+          const notes = modal.querySelector('#submissionNotes').value.trim();
+
+          if (!notes) {
+            uiComponents.toast.error('Please provide submission notes');
+            return;
+          }
+
+          try {
+            e.target.disabled = true;
+            e.target.textContent = 'Submitting...';
+
+            await apiService.tasks.submit(taskId, { notes });
+
+            uiComponents.toast.success('Work submitted successfully!');
+            close();
+            await loadAssignedTasks();
+          } catch (error) {
+            console.error('Failed to submit work:', error);
+            uiComponents.toast.error(utils.parseError(error));
+            e.target.disabled = false;
+            e.target.textContent = 'Submit Work';
+          }
+        }
+      });
+    };
+
+    // Initialize
+    async function init() {
+      await loadUserProfile();
+      await Promise.all([loadPostedTasks(), loadAssignedTasks()]);
+    }
+
+    init();
+  </script>
+</body>
+</html>
