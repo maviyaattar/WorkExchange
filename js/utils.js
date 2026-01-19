@@ -225,7 +225,7 @@ const utils = {
    */
   requireAuth() {
     if (!this.isAuthenticated()) {
-      window.location.href = '/workexchange-frontend/pages/login.html';
+      window.location.href = '/pages/login.html';
     }
   },
 

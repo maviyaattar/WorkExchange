@@ -98,7 +98,7 @@ const apiService = {
           this.removeToken();
           this.removeCurrentUser();
           if (window.location.pathname !== '/login.html' && window.location.pathname !== '/register.html') {
-            window.location.href = '/workexchange-frontend/pages/login.html';
+            window.location.href = '/pages/login.html';
           }
         }
 
@@ -181,7 +181,7 @@ const apiService = {
     logout() {
       apiService.removeToken();
       apiService.removeCurrentUser();
-      window.location.href = '/workexchange-frontend/pages/login.html';
+      window.location.href = '/pages/login.html';
     },
   },
 

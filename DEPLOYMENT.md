@@ -8,19 +8,17 @@ This is a static web application that requires no build process. Simply serve th
 
 ### Option 1: Python (Recommended)
 ```bash
-cd workexchange-frontend
 python3 -m http.server 8000
 ```
 Then open: http://localhost:8000
 
 ### Option 2: Node.js
 ```bash
-npx http-server workexchange-frontend -p 8000
+npx http-server -p 8000
 ```
 
 ### Option 3: PHP
 ```bash
-cd workexchange-frontend
 php -S localhost:8000
 ```
 
@@ -28,30 +26,30 @@ php -S localhost:8000
 
 ### Netlify (Easiest)
 1. Sign up at https://netlify.com
-2. Drag and drop the `workexchange-frontend` folder
+2. Drag and drop the project folder
 3. Done! Your site is live.
 
 ### Vercel
 1. Install Vercel CLI: `npm i -g vercel`
-2. Run: `vercel workexchange-frontend`
+2. Run: `vercel`
 3. Follow prompts
 
 ### GitHub Pages
 1. Push code to GitHub
 2. Go to Settings → Pages
-3. Select branch and `/workexchange-frontend` folder
+3. Select branch and root folder
 4. Save
 
 ### AWS S3 + CloudFront
 1. Create S3 bucket
 2. Enable static website hosting
-3. Upload `workexchange-frontend` contents
+3. Upload contents
 4. Create CloudFront distribution
 5. Point to S3 bucket
 
 ### Cloudflare Pages
 1. Connect GitHub repository
-2. Set build directory to `workexchange-frontend`
+2. Set build directory to root
 3. No build command needed
 4. Deploy
 
