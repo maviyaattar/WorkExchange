@@ -151,4 +151,15 @@ const apiService = {
   }
 };
 
+// ===============================
+// GLOBAL EXPOSURE
+// ===============================
+// Always expose apiService globally for inline scripts
+if (typeof window !== 'undefined') {
+  window.apiService = apiService;
+}
+
+// ===============================
+// MODULE EXPORT (for ES6 modules)
+// ===============================
 export default apiService;

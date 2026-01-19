@@ -134,13 +134,12 @@
     </nav>
   </div>
 
+  <!-- Global authentication guard - must load FIRST -->
+  <script src="../js/auth-guard.js"></script>
   <script src="../js/utils.js"></script>
   <script src="../js/components.js"></script>
-  <script src="../js/api.js"></script>
+  <script type="module" src="../js/api.js"></script>
   <script>
-    // Check authentication
-    utils.requireAuth();
-    
     // Set active navigation
     utils.setActiveNav('profile');
 
@@ -308,8 +307,17 @@
       });
     };
 
-    // Initialize
-    loadProfile();
+    // Initialize when DOM is ready and apiService module is loaded
+    // Module scripts with type="module" are deferred by default, so we
+    // use Promise microtask to ensure apiService is fully initialized
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        Promise.resolve().then(loadProfile);
+      });
+    } else {
+      // DOM already loaded
+      Promise.resolve().then(loadProfile);
+    }
   </script>
 </body>
 </html>
