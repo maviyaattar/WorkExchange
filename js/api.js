@@ -1,4 +1,4 @@
- // ===============================
+// ===============================
 // API CONFIG
 // ===============================
 const API_BASE = "https://workbackend-egr6.onrender.com";
@@ -21,7 +21,7 @@ async function request(endpoint, options = {}) {
     ...(options.headers || {})
   };
 
-  // 🔥 FIX: Backend expects RAW token (no Bearer)
+  // Backend expects RAW token
   if (token) {
     headers["Authorization"] = token;
   }
@@ -33,7 +33,6 @@ async function request(endpoint, options = {}) {
 
   const data = await res.json();
 
-  // Auto logout on auth fail
   if (!res.ok) {
     if (res.status === 401) {
       clearToken();
@@ -48,8 +47,6 @@ async function request(endpoint, options = {}) {
 // ===============================
 // AUTH APIs
 // ===============================
-
-// Register
 export function registerUser(payload) {
   return request("/api/auth/register", {
     method: "POST",
@@ -57,7 +54,6 @@ export function registerUser(payload) {
   });
 }
 
-// Login
 export async function loginUser(payload) {
   const res = await request("/api/auth/login", {
     method: "POST",
@@ -71,12 +67,10 @@ export async function loginUser(payload) {
   return res;
 }
 
-// Logged-in user
 export function getMe() {
   return request("/api/auth/me");
 }
 
-// Logout
 export function logout() {
   clearToken();
   window.location.href = "/pages/login.html";
@@ -85,8 +79,6 @@ export function logout() {
 // ===============================
 // PROFILE APIs
 // ===============================
-
-// Update profile
 export function updateProfile(payload) {
   return request("/api/users/me", {
     method: "PUT",
@@ -94,7 +86,6 @@ export function updateProfile(payload) {
   });
 }
 
-// Public profile
 export function getUserProfile(userId) {
   return request(`/api/users/${userId}`);
 }
@@ -102,11 +93,79 @@ export function getUserProfile(userId) {
 // ===============================
 // TASK APIs
 // ===============================
-
-// Create task
 export function createTask(payload) {
   return request("/api/tasks", {
     method: "POST",
+    body: JSON.stringify(payload)
+  });
+}
+
+export function getAllTasks() {
+  return request("/api/tasks");
+}
+
+export function getMyPostedTasks() {
+  return request("/api/tasks/my/posted");
+}
+
+export function getMyAssignedTasks() {
+  return request("/api/tasks/my/assigned");
+}
+
+export function assignTask(taskId) {
+  return request(`/api/tasks/assign/${taskId}`, {
+    method: "PUT"
+  });
+}
+
+export function submitTask(taskId) {
+  return request(`/api/tasks/submit/${taskId}`, {
+    method: "PUT"
+  });
+}
+
+export function approveTask(taskId) {
+  return request(`/api/tasks/approve/${taskId}`, {
+    method: "PUT"
+  });
+}
+
+// ===============================
+// REVIEW APIs
+// ===============================
+export function giveReview(payload) {
+  return request("/api/reviews", {
+    method: "POST",
+    body: JSON.stringify(payload)
+  });
+}
+
+export function getUserReviews(userId) {
+  return request(`/api/reviews/user/${userId}`);
+}
+
+// ===============================
+// DEFAULT EXPORT (FOR apiService.xxx STYLE)
+// ===============================
+const apiService = {
+  registerUser,
+  loginUser,
+  getMe,
+  logout,
+  updateProfile,
+  getUserProfile,
+  createTask,
+  getAllTasks,
+  getMyPostedTasks,
+  getMyAssignedTasks,
+  assignTask,
+  submitTask,
+  approveTask,
+  giveReview,
+  getUserReviews
+};
+
+export default apiService;    method: "POST",
     body: JSON.stringify(payload)
   });
 }
