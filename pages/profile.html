@@ -138,8 +138,23 @@
   <script src="../js/auth-guard.js"></script>
   <script src="../js/utils.js"></script>
   <script src="../js/components.js"></script>
-  <script src="../js/api.js"></script>
+  <script type="module" src="../js/api.js"></script>
   <script>
+    // Wait for apiService to be available before running page logic
+    function waitForApiService(callback, maxWait = 5000) {
+      const startTime = Date.now();
+      const checkInterval = setInterval(() => {
+        if (window.apiService) {
+          clearInterval(checkInterval);
+          callback();
+        } else if (Date.now() - startTime > maxWait) {
+          clearInterval(checkInterval);
+          console.error('apiService failed to load');
+          uiComponents.toast.error('Failed to initialize application');
+        }
+      }, 50);
+    }
+    
     // Set active navigation
     utils.setActiveNav('profile');
 
@@ -307,8 +322,8 @@
       });
     };
 
-    // Initialize
-    loadProfile();
+    // Initialize - wait for apiService to be available
+    waitForApiService(loadProfile);
   </script>
 </body>
 </html>
