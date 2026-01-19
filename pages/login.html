@@ -86,6 +86,20 @@
   <script src="../js/components.js"></script>
   <script src="../js/api.js"></script>
   <script>
+    /**
+     * Login Page Script
+     * 
+     * Authentication Flow:
+     * 1. Check if user is already logged in - redirect to dashboard if authenticated
+     * 2. Handle form submission with validation
+     * 3. Send credentials to backend API
+     * 4. On success: Store JWT token in localStorage and redirect to dashboard
+     * 5. On failure: Display error message to user
+     * 
+     * The JWT token is automatically included in all subsequent API requests
+     * via the Authorization header (Bearer token) by the apiService
+     */
+
     // Redirect if already logged in
     if (utils.isAuthenticated()) {
       window.location.href = 'dashboard.html';
@@ -104,7 +118,7 @@
       eyeOffIcon.classList.toggle('hidden');
     });
 
-    // Form submission
+    // Form submission handler
     const loginForm = document.getElementById('loginForm');
     const emailInput = document.getElementById('email');
     const emailError = document.getElementById('emailError');
@@ -121,6 +135,7 @@
       passwordError.textContent = '';
     });
 
+    // Handle login form submission
     loginForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
@@ -134,7 +149,7 @@
       const email = emailInput.value.trim();
       const password = passwordInput.value;
 
-      // Validate
+      // Client-side validation
       let hasError = false;
 
       if (!email) {
@@ -155,23 +170,27 @@
 
       if (hasError) return;
 
-      // Submit login request
+      // Show loading state
       const submitBtn = loginForm.querySelector('button[type="submit"]');
       utils.showLoading(submitBtn);
 
       try {
+        // Call login API - this will store the JWT token in localStorage
         const response = await apiService.auth.login({
           email,
           password,
         });
 
+        // Show success message
         uiComponents.toast.success('Login successful! Redirecting...');
         
-        // Redirect to dashboard
+        // Redirect to dashboard after successful login
+        // The token is now stored and will be used for all API requests
         setTimeout(() => {
           window.location.href = 'dashboard.html';
         }, 500);
       } catch (error) {
+        // Display error message for failed login attempts
         console.error('Login failed:', error);
         uiComponents.toast.error(utils.parseError(error));
         utils.hideLoading(submitBtn);

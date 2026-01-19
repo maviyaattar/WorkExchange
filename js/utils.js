@@ -214,6 +214,7 @@ const utils = {
 
   /**
    * Check if user is authenticated
+   * Verifies presence of JWT token in localStorage
    * @returns {boolean} Is authenticated
    */
   isAuthenticated() {
@@ -221,7 +222,10 @@ const utils = {
   },
 
   /**
+   * Protected Route Guard
    * Redirect to login if not authenticated
+   * Call this function at the top of every protected page script
+   * Prevents unauthorized access by checking for valid JWT token
    */
   requireAuth() {
     if (!this.isAuthenticated()) {

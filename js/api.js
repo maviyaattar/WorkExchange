@@ -2,12 +2,23 @@
  * API Service Module
  * Handles all communication with the backend API
  * Base URL: https://workbackend-egr6.onrender.com
+ * 
+ * Authentication Flow:
+ * 1. User submits login credentials via login page
+ * 2. Backend validates credentials and returns JWT token
+ * 3. Token is stored in localStorage via setToken()
+ * 4. All subsequent API requests include token in Authorization header
+ * 5. If token is invalid/expired (401 response), user is redirected to login
+ * 6. On logout, token is removed and user redirected to login page
  */
 
 const API_BASE_URL = 'https://workbackend-egr6.onrender.com';
 
 const apiService = {
-  // --- Token helpers ---
+  /**
+   * JWT Token Management
+   * Tokens are stored in localStorage and sent in Authorization header
+   */
   getToken() {
     return localStorage.getItem('auth_token');
   },
@@ -17,6 +28,10 @@ const apiService = {
   removeToken() {
     localStorage.removeItem('auth_token');
   },
+  /**
+   * User Data Management
+   * Stores user profile data in localStorage for quick access
+   */
   getCurrentUser() {
     const userStr = localStorage.getItem('current_user');
     return userStr ? JSON.parse(userStr) : null;
@@ -30,6 +45,8 @@ const apiService = {
 
   /**
    * Main request handler
+   * Automatically includes JWT token in Authorization header for protected routes
+   * Handles 401 unauthorized responses by redirecting to login page
    */
   async request(endpoint, options = {}) {
     const url = `${API_BASE_URL}${endpoint}`;
@@ -39,6 +56,7 @@ const apiService = {
       ...options.headers,
     };
 
+    // Include JWT token in Authorization header if available
     if (token) {
       headers['Authorization'] = `Bearer ${token}`;
     }
@@ -59,6 +77,7 @@ const apiService = {
       }
 
       if (!response.ok) {
+        // Handle unauthorized - clear auth and redirect to login
         if (response.status === 401) {
           this.removeToken();
           this.removeCurrentUser();
@@ -77,8 +96,13 @@ const apiService = {
 
   /**
    * Authentication APIs
+   * Handles user registration, login, profile retrieval, and logout
    */
   auth: {
+    /**
+     * Register new user
+     * Stores JWT token and user data on successful registration
+     */
     async register(userData) {
       const response = await apiService.request('/api/auth/register', {
         method: 'POST',
@@ -91,6 +115,10 @@ const apiService = {
       return response;
     },
 
+    /**
+     * Login user with email and password
+     * Stores JWT token and user data on successful login
+     */
     async login(credentials) {
       const response = await apiService.request('/api/auth/login', {
         method: 'POST',
@@ -103,6 +131,10 @@ const apiService = {
       return response;
     },
 
+    /**
+     * Get current user profile
+     * Requires valid JWT token in Authorization header
+     */
     async getProfile() {
       const response = await apiService.request('/api/auth/me', {
         method: 'GET',
@@ -114,6 +146,10 @@ const apiService = {
       return response;
     },
 
+    /**
+     * Logout user
+     * Clears JWT token and user data, redirects to login page
+     */
     logout() {
       apiService.removeToken();
       apiService.removeCurrentUser();
@@ -130,8 +166,79 @@ const apiService = {
         method: 'GET',
       });
     },
-    // ...other user APIs if needed, add /api/ as needed!
   },
 
-  // (Add other API groups here – tasks, etc. – with /api/ prefix!)
+  /**
+   * Task APIs
+   * All task operations require authentication (JWT token in Authorization header)
+   */
+  tasks: {
+    /**
+     * Get all tasks with optional filters
+     */
+    async getAll(filters = {}) {
+      const queryParams = new URLSearchParams(filters).toString();
+      const endpoint = queryParams ? `/api/tasks?${queryParams}` : '/api/tasks';
+      return await apiService.request(endpoint, {
+        method: 'GET',
+      });
+    },
+
+    /**
+     * Get tasks posted by current user
+     */
+    async getPosted() {
+      return await apiService.request('/api/tasks/posted', {
+        method: 'GET',
+      });
+    },
+
+    /**
+     * Get tasks assigned to current user
+     */
+    async getAssigned() {
+      return await apiService.request('/api/tasks/assigned', {
+        method: 'GET',
+      });
+    },
+
+    /**
+     * Create a new task
+     */
+    async create(taskData) {
+      return await apiService.request('/api/tasks', {
+        method: 'POST',
+        body: JSON.stringify(taskData),
+      });
+    },
+
+    /**
+     * Assign task to current user
+     */
+    async assign(taskId) {
+      return await apiService.request(`/api/tasks/${taskId}/assign`, {
+        method: 'POST',
+      });
+    },
+
+    /**
+     * Submit completed task
+     */
+    async submit(taskId, data) {
+      return await apiService.request(`/api/tasks/${taskId}/submit`, {
+        method: 'POST',
+        body: JSON.stringify(data),
+      });
+    },
+
+    /**
+     * Approve completed task
+     */
+    async approve(taskId, data) {
+      return await apiService.request(`/api/tasks/${taskId}/approve`, {
+        method: 'POST',
+        body: JSON.stringify(data),
+      });
+    },
+  },
 };
